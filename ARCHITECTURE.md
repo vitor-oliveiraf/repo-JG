@@ -4,7 +4,7 @@
 
 React representa a interface; TanStack Router possui rotas, search params e proteção; TanStack Query possui estado remoto e ciclo de mutations; Axios é o único cliente REST da aplicação. MSW representa o backend inteiro, sem ramificações de negócio fictícias em componentes ou no Axios. O cliente Socket.IO usa o mesmo caminho de produção, interceptado na rede pelo MSW.
 
-O bootstrap inicializa os mocks antes de importar o router e seus componentes. Isso evita que o engine.io-client capture o WebSocket nativo antes da instalação do interceptor. Os mocks entram em chunk separado e podem ser desligados por configuração.
+O bootstrap inicializa os mocks antes de importar o router e seus componentes. Isso evita que o engine.io-client capture o WebSocket nativo antes da instalação do interceptor. Os mocks entram em chunk separado e podem ser desligados por configuração. Autenticação, conta, checkout e cliente Socket.IO são carregados sob demanda para reduzir o trabalho inicial. A conexão continua reconciliando os recursos ativos com REST assim que fica disponível.
 
 ## Cache e sincronização
 

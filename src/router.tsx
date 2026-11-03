@@ -4,14 +4,28 @@ import {
   createRouter,
   redirect,
   Link,
+  lazyRouteComponent,
 } from "@tanstack/react-router";
 import { Layout } from "./components/layout";
 import { Catalog, type CatalogSearch } from "./pages/catalog";
 import { Detail } from "./pages/detail";
 import { CartPage } from "./pages/cart";
-import { AuthPage } from "./pages/auth";
-import { Checkout, OrderPage } from "./pages/checkout";
-import { Profile, Wallets, Favorites, Orders } from "./pages/account";
+const AuthPage = lazyRouteComponent(() => import("./pages/auth"), "AuthPage");
+const Checkout = lazyRouteComponent(
+  () => import("./pages/checkout"),
+  "Checkout",
+);
+const OrderPage = lazyRouteComponent(
+  () => import("./pages/checkout"),
+  "OrderPage",
+);
+const Profile = lazyRouteComponent(() => import("./pages/account"), "Profile");
+const Wallets = lazyRouteComponent(() => import("./pages/account"), "Wallets");
+const Favorites = lazyRouteComponent(
+  () => import("./pages/account"),
+  "Favorites",
+);
+const Orders = lazyRouteComponent(() => import("./pages/account"), "Orders");
 import { queryClient, sessionOptions } from "./lib/api";
 const root = createRootRoute({
   component: Layout,
