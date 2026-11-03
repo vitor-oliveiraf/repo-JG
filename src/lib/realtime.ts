@@ -19,14 +19,18 @@ export function useRealtime() {
           auth: { token: localStorage.getItem("kurio.token") || "" },
           reconnectionDelay: 700,
         });
+        let connectedBefore = false;
         const reconcile = () => {
           if (!active) return;
+          const reconnect = connectedBefore;
+          connectedBefore = true;
           setState("Conectado");
           void client.invalidateQueries({
             predicate: (q) =>
               ["nfts", "nft", "cart", "quote", "order", "orders"].includes(
                 String(q.queryKey[0]),
-              ),
+              ) &&
+              (reconnect || q.state.data !== undefined),
           });
         };
         socket.on("connect", reconcile);
