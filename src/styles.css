@@ -1254,6 +1254,7 @@ footer {
 }
 .dialog-panel {
   border-radius: 8px;
+  transform: translate(-50%, -50%);
 }
 .skeleton-grid {
   display: grid;
@@ -2268,8 +2269,4 @@ footer {
     font-size: 12px;
     line-height: 18px;
   }
-}
-.auth-dialog {
-  transform: none;
-  translate: -50% 0;
 }

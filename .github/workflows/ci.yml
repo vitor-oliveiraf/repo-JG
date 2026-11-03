@@ -14,6 +14,7 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run build
+      - run: npm run test:production
       - run: npm test -- --grep-invert 'regressão visual'
       - uses: actions/upload-artifact@v4
         if: always()
@@ -21,4 +22,5 @@ jobs:
           name: playwright-report
           path: |
             reports/playwright/
+            reports/production/
             test-results/

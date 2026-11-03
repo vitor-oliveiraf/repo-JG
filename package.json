@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "playwright test",
+    "test:production": "playwright test --config playwright.production.config.ts",
     "test:update": "playwright test --update-snapshots",
     "audit": "node scripts/lighthouse.mjs"
   },

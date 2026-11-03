@@ -33,7 +33,7 @@ export function Dialog({
             event.preventDefault();
             if (returnFocus.current?.isConnected) returnFocus.current.focus();
           }}
-          className={`dialog-panel fixed left-1/2 top-1/2 z-50 max-h-[90dvh] w-[calc(100%-32px)] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-auto border border-border bg-background p-6 shadow-2xl ${className}`}
+          className={`dialog-panel fixed left-1/2 top-1/2 z-50 max-h-[90dvh] w-[calc(100%-32px)] max-w-lg overflow-auto border border-border bg-background p-6 shadow-2xl ${className}`}
         >
           <DialogPrimitive.Title className="mb-4 text-lg font-bold">
             {title}

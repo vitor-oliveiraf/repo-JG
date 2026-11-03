@@ -20,11 +20,14 @@ npm run build
 npm run preview
 npx playwright install chrome
 npm test
+npm run test:production
 npm run test:update
 npm run audit
 ```
 
 `preview` usa http://localhost:4173; mantenha-o aberto em outro terminal para a auditoria. `AUDIT_URL` permite auditar outra URL. Playwright inicia o servidor de desenvolvimento automaticamente. Baselines visuais foram produzidas em Windows/Chrome; diferenças de rasterização entre sistemas exigem baselines específicas. O CI executa os fluxos funcionais e guarda relatório/traces, sem comparar imagens Windows em Linux.
+
+`test:production` valida o posicionamento de login, cadastro e diálogos no build otimizado, em desktop, tela larga e janela baixa. Execute após o build. Para conferir um deploy existente, defina `DEPLOY_URL` com sua URL antes do comando.
 
 ## Contas fictícias
 
