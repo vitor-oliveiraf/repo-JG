@@ -13,7 +13,7 @@
   font-family: "Roboto Mono", monospace;
   color: #f5f1eb;
   background: #140d0a;
-  font-size: 14px;
+  font-size: 16px;
   font-synthesis: none;
   color-scheme: dark;
   --muted: #cfb28c;
@@ -26,12 +26,13 @@
 }
 body {
   margin: 0;
+  font-size: 14px;
 }
 button,
 input,
 select,
 textarea {
-  font: inherit;
+  font-family: inherit;
 }
 button,
 a,
@@ -93,11 +94,13 @@ fieldset {
   margin: 0;
   padding: 0;
 }
-input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
-    [type="file"]
-  ),
-select,
-textarea {
+:where(
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
+      [type="file"]
+    ),
+  select,
+  textarea
+) {
   width: 100%;
   min-width: 0;
   min-height: 42px;
@@ -201,6 +204,7 @@ label {
 .price {
   font-weight: 700;
   font-size: 18px;
+  line-height: 16px;
 }
 .price del {
   color: #b39463;
@@ -232,10 +236,13 @@ label {
 }
 .hero-copy {
   max-width: 600px;
+  align-self: flex-start;
+  margin-top: 43px;
 }
 .hero-copy > p:first-child {
   font-size: 14px;
-  letter-spacing: 1px;
+  line-height: 16px;
+  letter-spacing: 0;
 }
 .hero h1 {
   font-size: 43px;
@@ -332,7 +339,7 @@ label {
   gap: 15px;
   align-items: center;
   margin-bottom: 32px;
-  font-size: 13px;
+  font-size: 15px;
 }
 .tabs {
   display: flex;
@@ -362,7 +369,7 @@ label {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 15px;
 }
 .sort select {
   border: 0;
@@ -402,7 +409,7 @@ label {
 .nft-name {
   display: block;
   font-size: 16px;
-  line-height: 1.4;
+  line-height: 16px;
   margin-bottom: 6px;
 }
 .nft-art .favorite {
@@ -822,7 +829,7 @@ footer {
   font-size: 16px;
   white-space: nowrap;
 }
-.summary-values > small {
+.summary-values small {
   display: block;
   text-align: right;
   font-size: 10px;
@@ -1529,7 +1536,7 @@ footer {
 }
 @media (max-width: 600px) {
   :root {
-    font-size: 14px;
+    font-size: 16px;
   }
   .site-container {
     margin: 0 24px;
@@ -1593,6 +1600,7 @@ footer {
   }
   .hero-copy {
     max-width: 58%;
+    margin-top: 0;
     position: relative;
     z-index: 1;
   }
@@ -2261,4 +2269,7 @@ footer {
     line-height: 18px;
   }
 }
-.auth-dialog{transform:none;translate:-50% 0}
+.auth-dialog {
+  transform: none;
+  translate: -50% 0;
+}

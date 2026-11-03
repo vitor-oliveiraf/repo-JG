@@ -3,9 +3,10 @@ import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Heart, Search, SlidersHorizontal, ArrowRight } from "lucide-react";
 import { api } from "../lib/api";
+import { nftImageSources } from "../lib/images";
 import { useFavorites, useFavoriteMutation, useOwner } from "../lib/data";
 import { Button } from "../components/ui/button";
-import { Dialog } from "../components/ui/dialog";
+import { Dialog } from "../components/dialog";
 import { Empty, ErrorBox, Skeleton } from "../components/common";
 import { eth, type Nft, type NftList } from "../domain";
 const categories = [
@@ -37,7 +38,7 @@ export function NftCard({ nft, index = 0 }: { nft: Nft; index?: number }) {
   const navigate = useNavigate();
   const active = favorites.data?.includes(nft.id) || false;
   return (
-    <article className="nft-card">
+    <article className="nft-card" data-nft={nft.id}>
       <div className="nft-art">
         <Link
           to="/nft/$id"
@@ -46,6 +47,8 @@ export function NftCard({ nft, index = 0 }: { nft: Nft; index?: number }) {
         >
           <img
             src={nft.image}
+            srcSet={nftImageSources(nft.image)}
+            sizes="(max-width:600px) calc((100vw - 66px)/2), (max-width:900px) 220px, 258px"
             alt={nft.name}
             width="250"
             height="250"

@@ -9,7 +9,7 @@ import {
   useOwner,
 } from "../lib/data";
 import { Button } from "../components/ui/button";
-import { Dialog } from "../components/ui/dialog";
+import { Dialog } from "../components/dialog";
 import { ErrorBox, Quantity, Skeleton } from "../components/common";
 import { Related } from "./catalog";
 import { eth, type Edition } from "../domain";
@@ -103,15 +103,23 @@ export function Detail() {
           <h1>{nft.name}</h1>
           <div className="detail-price">
             <strong className="price">{eth(nft.price)}</strong>
-            <span>
-              <Star size={15} fill="currentColor" /> 4.8 (19 avaliações)
+            <span className="detail-rating">
+              <Star size={15} fill="currentColor" />{" "}
+              <span className="desktop-rating">4.8 (19 avaliações)</span>
+              <span className="mobile-rating">4.8(19)</span>
             </span>
           </div>
           <h2>Sobre este NFT:</h2>
           <p className="muted">
-            Um colecionável digital finalizado à mão da coleção Kurio Editions,
-            verificado na {nft.network}, com arte desbloqueável e acesso para
-            colecionadores.
+            <span className="desktop-description">
+              Um colecionável digital finalizado à mão da coleção Kurio
+              Editions, verificado na {nft.network}, com arte desbloqueável e
+              acesso para colecionadores.
+            </span>
+            <span className="mobile-description">
+              Um colecionável digital {edition} finalizado à mão da coleção
+              Kurio Editions, verificado na {nft.network}.
+            </span>
           </p>
           <fieldset className="editions">
             <legend>Edição:</legend>
@@ -131,6 +139,7 @@ export function Detail() {
             ))}
           </fieldset>
           <div className="buy-row">
+            <span className="quantity-label">Qtd.</span>
             <Quantity
               value={quantity}
               max={nft.editions[edition]}
@@ -140,7 +149,9 @@ export function Detail() {
               }}
               disabled={add.isPending}
             />
+            <strong className="purchase-price price">{eth(nft.price)}</strong>
             <Button
+              className="buy-primary"
               disabled={
                 add.isPending ||
                 quantity > nft.editions[edition] ||
@@ -157,10 +168,17 @@ export function Detail() {
                 )
               }
             >
-              <ShoppingCart size={16} />
-              {add.isPending ? "Adicionando…" : "COMPRAR"}
+              {add.isPending ? (
+                "Adicionando…"
+              ) : (
+                <>
+                  <span className="desktop-description">COMPRAR</span>
+                  <span className="mobile-description">Comprar NFT</span>
+                </>
+              )}
             </Button>
             <Button
+              className="buy-favorite"
               variant="outline"
               onClick={toggleFavorite}
               disabled={favorite.isPending}
@@ -168,6 +186,13 @@ export function Detail() {
               <Heart size={17} fill={active ? "currentColor" : "none"} />
               Favoritar
             </Button>
+            <Link
+              to="/carrinho"
+              className="detail-cart"
+              aria-label="Ver carrinho"
+            >
+              <ShoppingCart size={22} />
+            </Link>
           </div>
           {quantity > nft.editions[edition] && (
             <p role="alert">Esta quantidade não está mais disponível.</p>
@@ -187,7 +212,7 @@ export function Detail() {
           </p>
           <p className="muted">Coleção: {nft.collection}</p>
           <p className="muted">Atributos: Óculos, Esmeralda, Raro</p>
-          <p>
+          <p className="detail-availability">
             Rede: {nft.network} · {nft.editions[edition]} disponíveis
           </p>
         </div>

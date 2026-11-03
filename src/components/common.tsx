@@ -1,4 +1,12 @@
-import { useId, type InputHTMLAttributes, type ReactNode } from "react";
+import {
+  useEffect,
+  useId,
+  useState,
+  type InputHTMLAttributes,
+  type ReactNode,
+} from "react";
+import { Link } from "@tanstack/react-router";
+import { ChevronLeft, Eye, EyeOff } from "lucide-react";
 import { Button } from "./ui/button";
 import { message } from "../lib/api";
 export function Field({
@@ -24,6 +32,74 @@ export function Field({
         </small>
       )}
     </div>
+  );
+}
+export function PasswordField(
+  props: InputHTMLAttributes<HTMLInputElement> & {
+    label: string;
+    error?: string;
+  },
+) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <div className="password-field">
+      <Field {...props} type={visible ? "text" : "password"} />
+      <button
+        type="button"
+        className="password-toggle"
+        aria-label={`${visible ? "Ocultar" : "Mostrar"} ${props.label.toLowerCase()}`}
+        onClick={() => setVisible((v) => !v)}
+      >
+        {visible ? <Eye size={18} /> : <EyeOff size={18} />}
+      </button>
+    </div>
+  );
+}
+export function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(() => matchMedia(query).matches);
+  useEffect(() => {
+    const media = matchMedia(query);
+    const update = () => setMatches(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [query]);
+  return matches;
+}
+export function MobilePageHeader({
+  title,
+  to = "/",
+}: {
+  title: string;
+  to?: "/" | "/carrinho";
+}) {
+  return (
+    <div className="mobile-page-heading">
+      <Link to={to} aria-label="Voltar">
+        <ChevronLeft size={22} />
+      </Link>
+      <h1>{title}</h1>
+    </div>
+  );
+}
+export function GoogleMark() {
+  const positions = [
+    "57.68% 17.83% 0 7.11%",
+    "71.33% 17.83% 0 50%",
+    "24.69% 75.25% 24.69% 0",
+    "38.28% 0 11.97% 47.07%",
+    "38.28% 0 11.97% 50%",
+    "0 17.01% 57.68% 7.11%",
+    "0 17.01% 70.51% 50%",
+  ];
+  return (
+    <span className="google-mark" aria-hidden="true">
+      {positions.map((inset, i) => (
+        <span key={inset} style={{ inset }}>
+          <img src={`/assets/google-${i}.svg`} alt="" />
+        </span>
+      ))}
+    </span>
   );
 }
 export function SelectField({

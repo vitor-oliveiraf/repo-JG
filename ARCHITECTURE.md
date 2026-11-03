@@ -4,7 +4,7 @@
 
 React representa a interface; TanStack Router possui rotas, search params e proteção; TanStack Query possui estado remoto e ciclo de mutations; Axios é o único cliente REST da aplicação. MSW representa o backend inteiro, sem ramificações de negócio fictícias em componentes ou no Axios. O cliente Socket.IO usa o mesmo caminho de produção, interceptado na rede pelo MSW.
 
-O bootstrap inicializa os mocks antes de importar o router e seus componentes. Isso evita que o engine.io-client capture o WebSocket nativo antes da instalação do interceptor. Os mocks entram em chunk separado e podem ser desligados por configuração. Autenticação, conta, checkout e cliente Socket.IO são carregados sob demanda para reduzir o trabalho inicial. A conexão continua reconciliando os recursos ativos com REST assim que fica disponível.
+O bootstrap pequeno importa o app e inicializa os mocks em paralelo. React só monta depois que MSW está pronto, preservando a interceptação das primeiras chamadas REST. Socket.IO é importado dentro do efeito de conexão, após essa montagem; assim, engine.io-client captura o WebSocket já interceptado. Os mocks entram em chunk separado e podem ser desligados por configuração. Autenticação, conta, checkout, diálogos Radix e cliente Socket.IO são carregados sob demanda para reduzir o trabalho inicial. O painel de cenários consulta sua configuração somente ao abrir. A conexão continua reconciliando os recursos ativos com REST assim que fica disponível.
 
 ## Cache e sincronização
 
@@ -30,11 +30,11 @@ A cotação é a autoridade para finalizar. Checkout reconsulta antes de abrir a
 
 ## Interface e acessibilidade
 
-Paleta do Figma: ink #140D0A, card #241612, primary #D28A4C, foreground #F5F1EB, secondary #CFB28C. Roboto Mono é servida localmente via Fontsource. Os quatro artworks do Figma são reutilizados em seus slots e convertidos a WebP (900 px, qualidade 85), sem redesenho da arte.
+Paleta do Figma: ink #140D0A, card #241612, primary #D28A4C, foreground #F5F1EB, secondary #CFB28C. Roboto Mono é servida localmente via Fontsource. Os quatro artworks do Figma são reutilizados e convertidos a WebP (900 px, qualidade 85), sem redesenho da arte. Três artworks possuem variantes de 360/600 px com srcset/sizes nos cards; o Emerald mantém a mesma imagem local pré-carregada no hero e no detalhe, evitando transferências duplicadas dessas representações. O script optimize-assets regenera as variantes. Ícones sociais, marca de confirmação e fundo mobile usam os SVGs exportados do Figma.
 
 Layouts fluidos com pontos de adaptação em 1.280, 900 e 600 px, cobrindo 390, 768 e 1.440 px. Frames de perfil/carteiras/recibo são adaptados para mobile. Skeletons preservam espaço e respeitam reduced-motion. Diálogos usam Radix para foco, Escape, semântica e contenção. Inputs têm labels e associação de erros. Imagens relevantes têm descrição; imagens repetidas/decorativas usam alt vazio.
 
-Desvios deliberados: o catálogo oferece checkboxes explícitos para seleção múltipla; adiciona rótulos de formulário e informações de disponibilidade. Ações editoriais, newsletter, redes sociais e recuperação externa não simulam sucesso; indicam indisponibilidade ou usam navegação real. Autenticação desktop usa diálogo sobre o catálogo, e mobile usa uma página dedicada, seguindo os frames. O recibo é uma rota recuperável que mantém o snapshot da compra. O painel de cenários é um recurso adicional para avaliação.
+Desvios deliberados: o catálogo oferece checkboxes explícitos para seleção múltipla; adiciona rótulos de formulário e informações de disponibilidade. Ações editoriais, newsletter, redes sociais, login social e recuperação externa não simulam sucesso; indicam indisponibilidade ou usam navegação real. Autenticação desktop usa diálogo sobre o catálogo, e mobile usa uma página dedicada, seguindo os frames. O checkout mobile recolhe os dados já preenchidos do perfil, permite reabrir e editar e exige revisão explícita antes da compra. Provedores sem carteira cadastrada ficam indisponíveis. O recibo é uma rota recuperável que mantém o snapshot da compra e abre um explorador fictício identificado como simulação. O painel de cenários é um recurso adicional para avaliação. A comparação com os 15 frames está em [reports/FIGMA_REVIEW.md](reports/FIGMA_REVIEW.md).
 
 ## Validação e evidências
 

@@ -16,6 +16,12 @@ for (const name of names) {
       .toFile(`public/assets/${name}.webp`);
   else console.log(`${name}: WebP já incluído no repositório.`);
 }
+for (const name of names.filter((n) => n !== "home-imgFrame136"))
+  for (const width of [360, 600])
+    await sharp(`public/assets/${name}.webp`)
+      .resize({ width })
+      .webp({ quality: 85, effort: 6 })
+      .toFile(`public/assets/${name}-${width}.webp`);
 async function rewrite(dir) {
   for (const e of await readdir(dir, { withFileTypes: true })) {
     const file = path.join(dir, e.name);

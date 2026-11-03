@@ -4,13 +4,17 @@ import { useMutation } from "@tanstack/react-query";
 import { api, fields, queryClient } from "../lib/api";
 import type { User } from "../domain";
 import { Button } from "../components/ui/button";
-import { ErrorBox, Field } from "../components/common";
+import {
+  ErrorBox,
+  Field,
+  PasswordField,
+  GoogleMark,
+} from "../components/common";
 import { Catalog } from "./catalog";
-import { Dialog } from "../components/ui/dialog";
+import { Dialog } from "../components/dialog";
 export function AuthPage({ register = false }: { register?: boolean }) {
   const navigate = useNavigate();
   const search = useSearch({ strict: false }) as { redirect?: string };
-  const [show, setShow] = useState(false);
   const [validation, setValidation] = useState("");
   const [info, setInfo] = useState("");
   const [desktop, setDesktop] = useState(
@@ -57,10 +61,24 @@ export function AuthPage({ register = false }: { register?: boolean }) {
   });
   const errs = fields(mutation.error);
   const content = (
-    <section className="auth-page">
+    <section className={`auth-page ${register ? "is-register" : ""}`}>
       <Link to="/" className="auth-logo">
         KURIO
       </Link>
+      <div className="auth-tabs">
+        <Link to="/login" search={{ redirect: search.redirect }}>
+          Entrar
+        </Link>
+        <span>|</span>
+        <Link to="/cadastro" search={{ redirect: search.redirect }}>
+          Criar conta
+        </Link>
+      </div>
+      <p className="auth-intro">
+        {register
+          ? "Crie seu perfil de colecionador e conecte uma carteira quando quiser."
+          : "Entre para gerenciar sua carteira, coleção e perfil de criador."}
+      </p>
       <h1>{register ? "Criar perfil de colecionador" : "Entrar"}</h1>
       <form
         onSubmit={(e) => {
@@ -78,6 +96,7 @@ export function AuthPage({ register = false }: { register?: boolean }) {
           <Field
             label="Nome de exibição"
             name="name"
+            placeholder="Nome de exibição"
             autoComplete="name"
             required
             error={errs?.name}
@@ -92,34 +111,26 @@ export function AuthPage({ register = false }: { register?: boolean }) {
           required
           error={errs?.email}
         />
-        <Field
+        <PasswordField
           label="Senha"
           name="password"
-          type={show ? "text" : "password"}
+          placeholder="Senha"
           minLength={8}
           autoComplete={register ? "new-password" : "current-password"}
           required
           error={errs?.password}
         />
         {register && (
-          <Field
+          <PasswordField
             label="Confirmar senha"
             name="confirm"
-            type={show ? "text" : "password"}
+            placeholder="Confirmar senha"
             minLength={8}
             autoComplete="new-password"
             required
             error={validation}
           />
         )}
-        <label className="show-password">
-          <input
-            type="checkbox"
-            checked={show}
-            onChange={(e) => setShow(e.target.checked)}
-          />
-          Mostrar senha
-        </label>
         {!register && (
           <button
             type="button"
@@ -142,11 +153,31 @@ export function AuthPage({ register = false }: { register?: boolean }) {
               : "Entrar"}
         </Button>
       </form>
-      <p className="auth-demo muted">
-        Demonstração: nova@kurio.test
-        <br />
-        Senha: Kurio123!
-      </p>
+      <div className="auth-social">
+        <div className="social-divider">Ou continue com</div>
+        <Button
+          variant="outline"
+          onClick={() =>
+            setInfo(
+              "Login com Google indisponível nesta demonstração. Use e-mail e senha.",
+            )
+          }
+        >
+          <GoogleMark />
+          Continuar com Google
+        </Button>
+        <Button
+          variant="outline"
+          onClick={() =>
+            setInfo(
+              "Login com Facebook indisponível nesta demonstração. Use e-mail e senha.",
+            )
+          }
+        >
+          <img src="/assets/auth-facebook.svg" alt="" />
+          Continuar com Facebook
+        </Button>
+      </div>
       {info && <p role="status">{info}</p>}
       <p>
         {register ? "Já tem uma conta? " : "Novo na Kurio? "}

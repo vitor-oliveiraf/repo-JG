@@ -21,13 +21,18 @@ import { useCart, useSession } from "../lib/data";
 import { api, logout, queryClient } from "../lib/api";
 import { useRealtime } from "../lib/realtime";
 import { Button } from "./ui/button";
-import { Dialog } from "./ui/dialog";
+import { Dialog } from "./dialog";
 import { ErrorBox } from "./common";
 export function Layout() {
   const { data: user } = useSession();
   const { data: cart } = useCart();
   const navigate = useNavigate();
   const route = useRouterState({ select: (s) => s.location });
+  const market =
+    route.pathname.startsWith("/nft/") ||
+    route.pathname.startsWith("/pedido/") ||
+    ["/carrinho", "/pagamento"].includes(route.pathname) ||
+    route.searchStr.includes("market=true");
   const live = useRealtime();
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
@@ -53,16 +58,28 @@ export function Layout() {
       <a className="skip-link" href="#main">
         Pular para o conteúdo
       </a>
-      <div className="site-container" data-route={route.pathname}>
+      <div
+        className="site-container"
+        data-route={route.pathname}
+        data-market={market}
+      >
         <header className="header">
           <Link to="/" className="wordmark" aria-label="Kurio início">
             KURIO
           </Link>
           <nav className="desktop-nav" aria-label="Principal">
-            <Link to="/" activeOptions={{ exact: true }}>
+            <Link
+              to="/"
+              className={!market ? "nav-active" : ""}
+              activeOptions={{ exact: true }}
+            >
               Início
             </Link>
-            <Link to="/" search={{ market: true }}>
+            <Link
+              to="/"
+              className={market ? "nav-active" : ""}
+              search={{ market: true }}
+            >
               Mercado
             </Link>
             <button onClick={() => setSearchOpen(true)}>Criadores</button>
@@ -103,32 +120,43 @@ export function Layout() {
         <main id="main" tabIndex={-1}>
           <Outlet />
         </main>
-        {!["/perfil", "/carteiras", "/favoritos", "/pedidos"].some((p) =>
-          route.pathname.startsWith(p),
-        ) && <Footer />}
+        {![
+          "/perfil",
+          "/carteiras",
+          "/favoritos",
+          "/pedidos",
+          "/pedido/",
+          "/login",
+          "/cadastro",
+        ].some((p) => route.pathname.startsWith(p)) && <Footer />}
       </div>
-      <nav className="mobile-nav" aria-label="Navegação mobile">
-        <Link to="/" aria-label="Início">
-          <House />
-        </Link>
-        <Link to="/favoritos" aria-label="Favoritos">
-          <Heart />
-        </Link>
-        <Link
-          to="/"
-          search={{ market: true }}
-          className="mobile-center"
-          aria-label="Explorar NFTs"
-        >
-          <SlidersHorizontal />
-        </Link>
-        <Link to="/carrinho" aria-label="Carrinho">
-          <ShoppingCart />
-        </Link>
-        <Link to="/perfil" aria-label="Perfil">
-          <UserRound />
-        </Link>
-      </nav>
+      {(route.pathname === "/" ||
+        ["/perfil", "/carteiras", "/favoritos", "/pedidos"].includes(
+          route.pathname,
+        )) && (
+        <nav className="mobile-nav" aria-label="Navegação mobile">
+          <Link to="/" aria-label="Início">
+            <House />
+          </Link>
+          <Link to="/favoritos" aria-label="Favoritos">
+            <Heart />
+          </Link>
+          <Link
+            to="/"
+            search={{ market: true }}
+            className="mobile-center"
+            aria-label="Explorar NFTs"
+          >
+            <SlidersHorizontal />
+          </Link>
+          <Link to="/carrinho" aria-label="Carrinho">
+            <ShoppingCart />
+          </Link>
+          <Link to="/perfil" aria-label="Perfil">
+            <UserRound />
+          </Link>
+        </nav>
+      )}
       {live.notice && (
         <div className="live-notice" role="status">
           {live.notice}
@@ -206,19 +234,30 @@ function Footer() {
         ))}
         <div>
           <h3>Antecipe-se ao próximo lançamento</h3>
+          <form
+            className="newsletter"
+            onSubmit={(e) => {
+              e.preventDefault();
+              setInfo(
+                "Newsletter indisponível nesta demonstração. Nenhuma inscrição foi enviada.",
+              );
+            }}
+          >
+            <label htmlFor="newsletter-email" className="sr-only">
+              E-mail para novidades
+            </label>
+            <input
+              id="newsletter-email"
+              type="email"
+              placeholder="digite seu e-mail…"
+              required
+            />
+            <Button type="submit">Enviar</Button>
+          </form>
           <p>
             Receba lançamentos selecionados, histórias de criadores e novidades
             do mercado.
           </p>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() =>
-              setInfo("Newsletter indisponível nesta demonstração.")
-            }
-          >
-            Saiba mais
-          </Button>
         </div>
       </div>
       <div className="footer-band">
@@ -238,6 +277,15 @@ function Footer() {
           <Link to="/carteiras">Carteiras</Link>
           <Link to="/pedidos">Meus pedidos</Link>
           <Link to="/favoritos">Lista de interesse</Link>
+          <button
+            onClick={() =>
+              setInfo(
+                "Estúdio do criador: recurso fora do escopo desta demonstração.",
+              )
+            }
+          >
+            Estúdio do criador
+          </button>
         </div>
         <div>
           <h3>Central de ajuda</h3>
@@ -269,7 +317,27 @@ function Footer() {
         </div>
         <div>
           <h3>Redes sociais</h3>
-          <p className="muted">KURIO · Cultura digital</p>
+          <div className="social-links">
+            {[
+              ["facebook", "Facebook"],
+              ["instagram", "Instagram"],
+              ["twitter", "Twitter"],
+              ["linkedin", "LinkedIn"],
+              ["youtube", "YouTube"],
+            ].map(([id, label]) => (
+              <button
+                key={id}
+                aria-label={label}
+                onClick={() =>
+                  setInfo(
+                    `${label}: perfil externo indisponível nesta demonstração.`,
+                  )
+                }
+              >
+                <img src={`/assets/social-${id}.svg`} alt="" loading="lazy" />
+              </button>
+            ))}
+          </div>
           <h3>Carteiras compatíveis</h3>
           <small className="wallet-chip">
             METAMASK · WALLETCONNECT · COINBASE
@@ -306,7 +374,7 @@ export function AccountNav() {
         <Heart size={16} />
         Lista de interesse
       </Link>
-      {["Atividade", "Ofertas", "Arquivos baixados", "Suporte"].map((t) => (
+      {["Ofertas", "Arquivos baixados", "Suporte"].map((t) => (
         <button
           key={t}
           onClick={() => setInfo(`${t} não faz parte desta demonstração.`)}
@@ -337,6 +405,7 @@ function DemoPanel() {
   const [open, setOpen] = useState(false);
   const state = useQuery({
     queryKey: ["demo"],
+    enabled: open,
     queryFn: async () =>
       (await api.get<{ scenario: string; scenarios: string[] }>("/demo")).data,
   });

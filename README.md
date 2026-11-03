@@ -75,3 +75,5 @@ Para Vercel, importe o repositório, selecione Vite, use `npm run build` e saíd
 - `reports`: evidências Playwright e Lighthouse.
 
 Detalhes dos contratos estão em [API.md](API.md); decisões, cache, sessão e limitações em [ARCHITECTURE.md](ARCHITECTURE.md).
+
+Revisão de fidelidade e diferenças deliberadas: [FIGMA_REVIEW.md](reports/FIGMA_REVIEW.md). Resultados medidos de performance e testes: [VALIDATION.md](reports/VALIDATION.md).

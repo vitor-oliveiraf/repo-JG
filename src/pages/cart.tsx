@@ -6,11 +6,25 @@ import { useCart, useCartMutation, useQuote, useOwner } from "../lib/data";
 import { api } from "../lib/api";
 import { decimal, units, eth, type Quote } from "../domain";
 import { Button } from "../components/ui/button";
-import { Empty, ErrorBox, Quantity, Skeleton } from "../components/common";
+import {
+  Empty,
+  ErrorBox,
+  Quantity,
+  Skeleton,
+  MobilePageHeader,
+} from "../components/common";
 import { Related } from "./catalog";
-export function Summary({ quote }: { quote: Quote }) {
+export function Summary({
+  quote,
+  compact = false,
+}: {
+  quote: Quote;
+  compact?: boolean;
+}) {
   return (
-    <dl className="summary-values">
+    <dl
+      className={`summary-values ${compact ? "compact-summary" : ""} ${quote.discount !== "0" ? "has-discount" : ""}`}
+    >
       <div>
         <dt>Subtotal</dt>
         <dd>{eth(quote.subtotal)}</dd>
@@ -21,9 +35,11 @@ export function Summary({ quote }: { quote: Quote }) {
       </div>
       <div>
         <dt>Taxa de rede</dt>
-        <dd>{eth(quote.fee)}</dd>
+        <dd>
+          {eth(quote.fee)}
+          <small className="accent">Taxa estimada na simulação</small>
+        </dd>
       </div>
-      <small className="accent">Taxa estimada na simulação</small>
       <div className="summary-total">
         <dt>Total</dt>
         <dd>{eth(quote.total)}</dd>
@@ -88,7 +104,7 @@ export function CartPage() {
       <div className="breadcrumbs">
         <Link to="/">Início</Link> / Mercado / Carrinho
       </div>
-      <h1 className="mobile-page-title">Carrinho de NFTs</h1>
+      <MobilePageHeader title="Carrinho de NFTs" />
       {cart.isPending || quote.isPending ? (
         <Skeleton kind="summary" />
       ) : cart.isError || quote.isError ? (

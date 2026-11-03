@@ -7,6 +7,7 @@ import { AccountNav } from "../components/layout";
 import { Button } from "../components/ui/button";
 import {
   Field,
+  PasswordField,
   ErrorBox,
   Skeleton,
   SelectField,
@@ -154,14 +155,14 @@ export function Profile() {
         </div>
         <div className="password-form">
           <h2>Alterar senha</h2>
-          <Field
+          <PasswordField
             label="Senha atual"
             name="current"
             type="password"
             autoComplete="current-password"
             error={errs?.current}
           />
-          <Field
+          <PasswordField
             label="Nova senha"
             name="password"
             type="password"
@@ -169,7 +170,7 @@ export function Profile() {
             autoComplete="new-password"
             error={errs?.password}
           />
-          <Field
+          <PasswordField
             label="Confirmar nova senha"
             name="confirm"
             type="password"
