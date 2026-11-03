@@ -24,6 +24,7 @@ Referência: cópia [Frontend Challenge](https://www.figma.com/design/4Ua6Jy9VzO
 - SVGs originais para fundo mobile, redes sociais, provedores de login e confirmação. Os fragmentos do símbolo Google conservam seus tamanhos e posições do export.
 - Navegação e rodapé ajustados para a composição de cada rota; botões de retorno nas telas mobile do fluxo de compra.
 - Lista semântica de valores corrigida, labels acessíveis preservadas e senha com exibição independente por campo.
+- Hierarquia de títulos do detalhe corrigida para leitores de tela. Em telas estreitas, o título e a seleção de carteira do checkout respeitam o espaço do botão de voltar; o painel Cenários fica fora da área de totais e compra.
 
 ## Diferenças deliberadas e limites
 
@@ -40,3 +41,16 @@ O app carrega em paralelo ao início do MSW e monta somente após a interceptaç
 As variantes de 360 px pesam entre 11,5 e 15,2 kB, em comparação com 54,2–76,7 kB dos mesmos artworks de 900 px. A representação efetivamente escolhida depende do tamanho do card e da densidade da tela; em telas de maior densidade o navegador pode escolher 600/900 px.
 
 O custo restante está principalmente na inicialização de React/router e do backend MSW no navegador. Uma versão com backend real poderia retirar o MSW da entrega e avaliar pré-renderização do catálogo; isso exige outro contrato de execução. As medições locais não substituem dados de usuários reais ou uma auditoria do host publicado.
+
+## Resultado medido
+
+Comparação com a auditoria anterior, usando Lighthouse 12.8.2, os mesmos perfis e mediana de três execuções por combinação. Execução final no código 1b1f59b, após encerrar os testes E2E.
+
+| Página / perfil | Performance anterior | Performance final | LCP anterior | LCP final |
+| --- | ---: | ---: | ---: | ---: |
+| Início / mobile | 85 | 90 | 3827 ms | 3350 ms |
+| Início / desktop | 99 | 99 | 968 ms | 792 ms |
+| Detalhe / mobile | 88 | 92 | 3657 ms | 3176 ms |
+| Detalhe / desktop | 99 | 100 | 833 ms | 765 ms |
+
+Acessibilidade, boas práticas e SEO atingiram 100 nos quatro casos. Todas as medianas atendem às metas do desafio; o LCP mobile de aproximadamente 3,2–3,35 s continua sendo o próximo foco de otimização. Os 40 testes passaram na execução final, incluindo a comparação normal com as oito baselines revisadas. Os relatórios completos estão em [VALIDATION.md](VALIDATION.md).

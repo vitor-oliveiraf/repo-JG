@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-03T19:06:07.613Z",
+  "date": "2026-11-03T23:08:56.129Z",
   "environment": {
     "os": "win32",
     "release": "10.0.26300",
@@ -13,28 +13,28 @@
       "page": "inicio",
       "profile": "mobile",
       "scores": {
-        "performance": 85,
+        "performance": 90,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcp": 3827.1180000000004,
-      "cls": 0.0005489859864963301,
-      "tbt": 87,
+      "lcp": 3349.7472,
+      "cls": 0.0004505398163262272,
+      "tbt": 76.5,
       "runs": [
         {
           "page": "inicio",
           "profile": "mobile",
           "run": 1,
           "scores": {
-            "performance": 85,
+            "performance": 90,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 3783.5427500000005,
-          "cls": 0.0005489859864963301,
-          "tbt": 87,
+          "lcp": 3293.7034000000003,
+          "cls": 0.0004505398163262272,
+          "tbt": 76.5,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
         },
@@ -43,14 +43,14 @@
           "profile": "mobile",
           "run": 2,
           "scores": {
-            "performance": 85,
+            "performance": 90,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 3848.6699999999996,
-          "cls": 0.0005489859864963301,
-          "tbt": 78,
+          "lcp": 3349.7472,
+          "cls": 0.0004505398163262272,
+          "tbt": 75,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
         },
@@ -59,14 +59,14 @@
           "profile": "mobile",
           "run": 3,
           "scores": {
-            "performance": 85,
+            "performance": 90,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 3827.1180000000004,
-          "cls": 0.0005489859864963301,
-          "tbt": 88,
+          "lcp": 3451.7816000000003,
+          "cls": 0.0004505398163262272,
+          "tbt": 84,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
         }
@@ -81,8 +81,8 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcp": 967.5279999999999,
-      "cls": 0.000984776264708719,
+      "lcp": 791.6633999999999,
+      "cls": 0.001107408175998264,
       "tbt": 0,
       "runs": [
         {
@@ -95,8 +95,8 @@
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 936.51475,
-          "cls": 0.000984776264708719,
+          "lcp": 823.268475,
+          "cls": 0.001107408175998264,
           "tbt": 0,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
@@ -111,8 +111,8 @@
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 984.48225,
-          "cls": 0.000984776264708719,
+          "lcp": 775.28575,
+          "cls": 0.001107408175998264,
           "tbt": 0,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
@@ -127,8 +127,8 @@
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 967.5279999999999,
-          "cls": 0.000984776264708719,
+          "lcp": 791.6633999999999,
+          "cls": 0.001107408175998264,
           "tbt": 0,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
@@ -139,28 +139,28 @@
       "page": "detalhe",
       "profile": "mobile",
       "scores": {
-        "performance": 88,
-        "accessibility": 98,
+        "performance": 92,
+        "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcp": 3656.6132500000003,
-      "cls": 0.00001310472989084036,
-      "tbt": 62,
+      "lcp": 3175.9584,
+      "cls": 0.0001560651447410787,
+      "tbt": 69.5104,
       "runs": [
         {
           "page": "detalhe",
           "profile": "mobile",
           "run": 1,
           "scores": {
-            "performance": 88,
-            "accessibility": 98,
+            "performance": 92,
+            "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 3508.0685000000003,
-          "cls": 0.00001310472989084036,
-          "tbt": 62,
+          "lcp": 3175.9584,
+          "cls": 0.0001560651447410787,
+          "tbt": 69.5104,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
         },
@@ -169,14 +169,14 @@
           "profile": "mobile",
           "run": 2,
           "scores": {
-            "performance": 86,
-            "accessibility": 98,
+            "performance": 91,
+            "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 3689.0822499999995,
-          "cls": 0.00001310472989084036,
-          "tbt": 71,
+          "lcp": 3183.6524,
+          "cls": 0.0001560651447410787,
+          "tbt": 97.5,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
         },
@@ -185,14 +185,14 @@
           "profile": "mobile",
           "run": 3,
           "scores": {
-            "performance": 88,
-            "accessibility": 98,
+            "performance": 92,
+            "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 3656.6132500000003,
-          "cls": 0.00001310472989084036,
-          "tbt": 59,
+          "lcp": 3158.2486000000004,
+          "cls": 0.0001560651447410787,
+          "tbt": 53,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
         }
@@ -202,13 +202,13 @@
       "page": "detalhe",
       "profile": "desktop",
       "scores": {
-        "performance": 99,
+        "performance": 100,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcp": 833.03975,
-      "cls": 0.00011704345703125,
+      "lcp": 765.1460750000001,
+      "cls": 0.0001451080472969715,
       "tbt": 0,
       "runs": [
         {
@@ -216,13 +216,13 @@
           "profile": "desktop",
           "run": 1,
           "scores": {
-            "performance": 99,
+            "performance": 100,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 831.1095,
-          "cls": 0.00011704345703125,
+          "lcp": 772.041225,
+          "cls": 0.0001451080472969715,
           "tbt": 0,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
@@ -232,13 +232,13 @@
           "profile": "desktop",
           "run": 2,
           "scores": {
-            "performance": 99,
+            "performance": 100,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 833.03975,
-          "cls": 0.00011704345703125,
+          "lcp": 765.1460750000001,
+          "cls": 0.0001451080472969715,
           "tbt": 0,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
@@ -248,13 +248,13 @@
           "profile": "desktop",
           "run": 3,
           "scores": {
-            "performance": 99,
+            "performance": 100,
             "accessibility": 100,
             "best-practices": 100,
             "seo": 100
           },
-          "lcp": 841.465,
-          "cls": 0.00011704345703125,
+          "lcp": 764.31205,
+          "cls": 0.00011353009259259259,
           "tbt": 0,
           "lighthouseVersion": "12.8.2",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"

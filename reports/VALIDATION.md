@@ -1,14 +1,14 @@
 # Validação da entrega
 
-Código-fonte auditado: `0f2b1c2a91272a3b57034fb68933c5cd8cb22acc`. Medições concluídas em 03/11/2026, 16:06:07 (horário de Brasília).
+Código-fonte auditado: `1b1f59bd90e4e70bacee7b3de5a8a568dc6fe4b2`. Medições concluídas em 03/11/2026, 20:08:56 (horário de Brasília).
 
 ## Verificações
 
 - TypeScript, ESLint e build de produção: aprovados.
-- Playwright: **38 testes aprovados**, 19 por viewport, incluindo oito baselines de regressão visual.
+- Playwright: **40 testes aprovados**, 20 por viewport, incluindo oito baselines de regressão visual.
 - Chromium/Chrome em 1440 × 1000 e 390 × 844; verificação adicional de overflow em 768 × 1024.
 - Fluxos passam pelos handlers MSW; eventos passam por socket.io-client e pelo binding Socket.IO.
-- Teclado, restauração de foco, erros de formulário, cenário lento e varredura axe incluídos.
+- Teclado, restauração de foco, erros de formulário, cenário lento e varredura axe em início, login, carrinho e checkout incluídos.
 
 [Relatório HTML Playwright](playwright/index.html). Traces e screenshots são retidos automaticamente em caso de falha. A execução final não apresentou falhas.
 
@@ -18,14 +18,14 @@ Três execuções por página e perfil, no build otimizado servido pelo Vite pre
 
 | Página | Perfil | Performance | Acessibilidade | Boas práticas | SEO | LCP (ms) | CLS | TBT (ms) |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| inicio | mobile | 85 | 100 | 100 | 100 | 3827 | 0.00055 | 87 |
-| inicio | desktop | 99 | 100 | 100 | 100 | 968 | 0.00098 | 0 |
-| detalhe | mobile | 88 | 98 | 100 | 100 | 3657 | 0.00001 | 62 |
-| detalhe | desktop | 99 | 100 | 100 | 100 | 833 | 0.00012 | 0 |
+| inicio | mobile | 90 | 100 | 100 | 100 | 3350 | 0.00045 | 77 |
+| inicio | desktop | 99 | 100 | 100 | 100 | 792 | 0.00111 | 0 |
+| detalhe | mobile | 92 | 100 | 100 | 100 | 3176 | 0.00016 | 70 |
+| detalhe | desktop | 100 | 100 | 100 | 100 | 765 | 0.00015 | 0 |
 
 Metas: performance ≥ 90; acessibilidade e boas práticas ≥ 95; SEO ≥ 90.
 
-As seguintes combinações ficaram abaixo de alguma meta: inicio/mobile, detalhe/mobile. O principal custo remanescente é o bootstrap e a avaliação de JavaScript da interface e da camada MSW antes da renderização dos recursos. O perfil mobile aplica throttling de CPU/rede; LCP fica limitado principalmente pelo atraso de renderização/descoberta dos recursos. As telas de conta e o cliente Socket.IO foram separados em chunks; os mocks, o transporte, as imagens e os fluxos permaneceram completos. Os resultados abaixo da meta foram mantidos e documentados, sem uma variante especial para auditoria.
+Todas as medianas atendem às metas do desafio.
 
 Os 12 relatórios HTML e 12 JSON completos estão em [lighthouse/](lighthouse/). [Resumo reproduzível](lighthouse/summary.json). Resultados variam com hardware, navegador e processos concorrentes; os testes E2E foram encerrados antes das medições finais.
 
