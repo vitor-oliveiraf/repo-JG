@@ -687,6 +687,16 @@
   .site-container[data-route^="/nft/"] > footer {
     display: none;
   }
+  .site-container:is(
+      [data-route="/carrinho"],
+      [data-route="/pagamento"],
+      [data-route^="/nft/"],
+      [data-route^="/pedido/"]
+    )
+    ~ .demo-toggle {
+    top: 0;
+    bottom: auto;
+  }
   .site-container[data-route="/carrinho"],
   .site-container[data-route="/pagamento"],
   .site-container[data-route^="/nft/"] {
@@ -1378,5 +1388,17 @@
   }
   .order-actions {
     flex-direction: column;
+  }
+}
+@media (max-width: 400px) {
+  .site-container[data-route="/pagamento"] .mobile-page-heading h1 {
+    font-size: 18px;
+  }
+  .wallet-registers legend {
+    font-size: 14px;
+  }
+  .wallet-registers legend > a {
+    font-size: 12px;
+    white-space: nowrap;
   }
 }

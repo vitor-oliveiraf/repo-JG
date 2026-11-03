@@ -22,7 +22,7 @@ async function login(page: Page, email = "nova@kurio.test") {
 }
 async function add(page: Page) {
   await page.goto("/nft/emerald-ape-042");
-  await page.getByRole("button", { name: "COMPRAR", exact: true }).click();
+  await page.getByRole("button", { name: /^(COMPRAR|Comprar NFT)$/i }).click();
   await expect(
     page.getByRole("status").filter({ hasText: "NFT adicionado" }),
   ).toBeVisible();
@@ -32,7 +32,9 @@ async function checkout(page: Page) {
   await page
     .getByRole("button", { name: "Conectar carteira simulada" })
     .click();
-  await expect(page.getByText("Carteira conectada")).toBeVisible();
+  await expect(
+    page.getByRole("status").filter({ hasText: "Carteira conectada" }),
+  ).toBeVisible();
   await page.getByRole("button", { name: "Revisar compra" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
 }
@@ -126,10 +128,7 @@ test("favoritos otimistas com rollback e persistência", async ({ page }) => {
   await login(page);
   await page.goto("/nft/emerald-ape-042");
   await control(page, { action: "scenario", scenario: "favorite-failure" });
-  await page
-    .locator(".buy-row")
-    .getByRole("button", { name: "Favoritar", exact: true })
-    .click();
+  await page.getByRole("button", { name: /^Favoritar(?: NFT)?$/ }).click();
   await expect(page.getByRole("alert")).toContainText("favorito");
   await page.goto("/favoritos");
   await expect(page.getByText("Você ainda não favoritou")).toBeVisible();
@@ -140,10 +139,7 @@ test("favoritos otimistas com rollback e persistência", async ({ page }) => {
       r.url().endsWith("/favorites/emerald-ape-042") &&
       r.request().method() === "PUT",
   );
-  await page
-    .locator(".buy-row")
-    .getByRole("button", { name: "Favoritar", exact: true })
-    .click();
+  await page.getByRole("button", { name: /^Favoritar(?: NFT)?$/ }).click();
   await favoriteResponse;
   await page.goto("/favoritos");
   await expect(page.locator(".nft-card")).toHaveCount(1);
@@ -193,7 +189,9 @@ test("compra completa, recibo imutável e carrinho esvaziado", async ({
     .getByRole("button", { name: "Confirmar compra", exact: true })
     .click();
   await expect(
-    page.getByRole("heading", { name: "Sua coleção acaba de crescer." }),
+    page.getByRole("heading", {
+      name: "Seus NFTs agora estão na sua carteira",
+    }),
   ).toBeVisible();
   await expect(page.locator(".summary-total")).toContainText("1.206 ETH");
   const url = page.url();
@@ -205,8 +203,9 @@ test("compra completa, recibo imutável e carrinho esvaziado", async ({
     page.getByRole("heading", { name: "Seu carrinho está vazio" }),
   ).toBeVisible();
   await page.goto(url);
+  await page.getByRole("button", { name: "Ver transação simulada" }).click();
   await expect(
-    page.getByText("Transação simulada", { exact: true }),
+    page.getByRole("dialog", { name: "Transação simulada" }),
   ).toBeVisible();
 });
 test("pagamento recusado preserva os itens", async ({ page }) => {
@@ -242,7 +241,9 @@ test("timeout, refresh e reenvio recuperam o mesmo pedido", async ({
     .getByRole("button", { name: "Recuperar pedido", exact: true })
     .click();
   await expect(
-    page.getByRole("heading", { name: "Sua coleção acaba de crescer." }),
+    page.getByRole("heading", {
+      name: "Seus NFTs agora estão na sua carteira",
+    }),
   ).toBeVisible();
   await page.goto("/pedidos");
   await expect(page.locator(".order-list-item")).toHaveCount(1);
@@ -293,7 +294,9 @@ test("cotação alterada exige nova revisão", async ({ page }) => {
     .getByRole("button", { name: "Confirmar compra", exact: true })
     .click();
   await expect(
-    page.getByRole("heading", { name: "Sua coleção acaba de crescer." }),
+    page.getByRole("heading", {
+      name: "Seus NFTs agora estão na sua carteira",
+    }),
   ).toBeVisible();
 });
 test("perfil, senha, avatar e carteira com validação da API", async ({
@@ -398,7 +401,7 @@ test("regressão visual: início, detalhe, carrinho e pagamento", async ({
     page.getByRole("heading", { name: "Emerald Ape #042", exact: true }),
   ).toBeVisible();
   await expect(page).toHaveScreenshot("detalhe.png", { fullPage: true });
-  await page.getByRole("button", { name: "COMPRAR", exact: true }).click();
+  await page.getByRole("button", { name: /^(COMPRAR|Comprar NFT)$/i }).click();
   await expect(
     page.getByRole("status").filter({ hasText: "NFT adicionado" }),
   ).toBeVisible();
@@ -407,7 +410,7 @@ test("regressão visual: início, detalhe, carrinho e pagamento", async ({
   await expect(page).toHaveScreenshot("carrinho.png", { fullPage: true });
   await login(page);
   await page.goto("/pagamento");
-  await expect(page.getByRole("heading", { name: "Seus NFTs" })).toBeVisible();
+  await expect(page.locator(".wallet-options")).toBeVisible();
   await expect(page).toHaveScreenshot("pagamento.png", { fullPage: true });
 });
 
@@ -429,7 +432,9 @@ test("pedido pendente: interrupção, relógio controlado, refresh e isolamento 
   await page.clock.setFixedTime(new Date("2026-11-03T18:00:05Z"));
   await page.reload();
   await expect(
-    page.getByRole("heading", { name: "Sua coleção acaba de crescer." }),
+    page.getByRole("heading", {
+      name: "Seus NFTs agora estão na sua carteira",
+    }),
   ).toBeVisible();
   await page.goto("/pedidos");
   await page.getByRole("button", { name: "Sair", exact: true }).click();
@@ -453,7 +458,9 @@ test("recusa de conexão e expiração durante o checkout preservam o carrinho",
   await page
     .getByRole("button", { name: "Conectar carteira simulada" })
     .click();
-  await expect(page.getByText("Carteira conectada")).toBeVisible();
+  await expect(
+    page.getByRole("status").filter({ hasText: "Carteira conectada" }),
+  ).toBeVisible();
   await control(page, { action: "expire" });
   await page.getByRole("button", { name: "Revisar compra" }).click();
   await expect(page).toHaveURL(/\/login/);
@@ -500,7 +507,9 @@ test("confirmações repetidas não geram pedidos duplicados", async ({
       (button as HTMLButtonElement).click();
     });
   await expect(
-    page.getByRole("heading", { name: "Sua coleção acaba de crescer." }),
+    page.getByRole("heading", {
+      name: "Seus NFTs agora estão na sua carteira",
+    }),
   ).toBeVisible();
   await page.goto("/pedidos");
   await expect(page.locator(".order-list-item")).toHaveCount(1);
@@ -522,4 +531,66 @@ test("nova senha permanece após logout e login", async ({ page }) => {
   await page.getByRole("button", { name: "Entrar", exact: true }).click();
   await expect(page).toHaveURL("/perfil");
   await expect(page.getByLabel("Nome de exibição")).toHaveValue("Nova Sato");
+});
+
+test("controles de senha, login social e acessibilidade de login, carrinho e checkout", async ({
+  page,
+}) => {
+  await page.goto("/login");
+  const password = page.getByLabel("Senha", { exact: true });
+  await password.fill("Kurio123!");
+  await page
+    .getByRole("button", { name: "Mostrar senha", exact: true })
+    .click();
+  await expect(password).toHaveAttribute("type", "text");
+  await page
+    .getByRole("button", { name: "Ocultar senha", exact: true })
+    .click();
+  await expect(password).toHaveAttribute("type", "password");
+  await page.getByRole("button", { name: "Continuar com Google" }).click();
+  await expect(page.getByRole("status")).toContainText(
+    "Login com Google indisponível",
+  );
+  expect(
+    (
+      await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        .analyze()
+    ).violations,
+  ).toEqual([]);
+  await add(page);
+  await page.goto("/carrinho");
+  await expect(page.locator(".cart-line")).toHaveCount(1);
+  expect(
+    (
+      await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        .analyze()
+    ).violations,
+  ).toEqual([]);
+  await login(page);
+  await page.goto("/pagamento");
+  await page
+    .getByRole("button", { name: "Conectar carteira simulada" })
+    .click();
+  const collector = page.locator(".checkout-collector > summary");
+  if (await collector.isVisible()) await collector.click();
+  const preview = page.locator(".checkout-order-preview > summary");
+  if (await preview.isVisible()) {
+    await preview.click();
+    await expect(page.locator(".receipt-lines > div").first()).toBeVisible();
+    await preview.click();
+  }
+  await page
+    .getByLabel("Nome de exibição", { exact: true })
+    .fill("Colecionador revisado");
+  expect(
+    (
+      await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        .analyze()
+    ).violations,
+  ).toEqual([]);
+  await page.getByRole("button", { name: "Revisar compra" }).click();
+  await expect(page.getByRole("dialog")).toContainText("Colecionador revisado");
 });

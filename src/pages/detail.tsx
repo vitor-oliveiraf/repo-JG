@@ -218,6 +218,7 @@ export function Detail() {
         </div>
       </section>
       <section className="detail-description">
+        <h2 className="sr-only">Informações da coleção</h2>
         <div className="tabs">
           <button
             aria-pressed={tab === "details"}
