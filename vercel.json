@@ -1,0 +1,19 @@
+{
+  "headers": [
+    {
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ],
+      "source": "/mockServiceWorker.js"
+    }
+  ],
+  "rewrites": [
+    {
+      "destination": "/index.html",
+      "source": "/((?!assets/|mockServiceWorker\\.js$|favicon\\.svg$|robots\\.txt$).*)"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "name": "kurio-marketplace",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "playwright test",
+    "test:update": "playwright test --update-snapshots",
+    "audit": "node scripts/lighthouse.mjs"
+  },
+  "dependencies": {
+    "@fontsource/roboto-mono": "^5.2.0",
+    "@mswjs/socket.io-binding": "^0.2.0",
+    "@radix-ui/react-dialog": "^1.1.0",
+    "@radix-ui/react-slot": "^1.2.0",
+    "@tailwindcss/vite": "^4.0.0",
+    "@tanstack/react-query": "^5.0.0",
+    "@tanstack/react-router": "^1.0.0",
+    "axios": "^1.0.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.468.0",
+    "msw": "^2.12.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "socket.io-client": "^4.8.0",
+    "tailwind-merge": "^3.0.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "chrome-launcher": "^1.2.2",
+    "eslint": "^9.0.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "globals": "^16.0.0",
+    "lighthouse": "^12.8.2",
+    "prettier": "^3.9.10",
+    "sharp": "^0.35.5",
+    "typescript": "~5.9.0",
+    "typescript-eslint": "^8.0.0",
+    "vite": "^7.2.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}
